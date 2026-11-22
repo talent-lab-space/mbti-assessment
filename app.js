@@ -55,14 +55,14 @@ function renderTypeCards() {
   wrap.innerHTML = ['NT', 'NF', 'SJ', 'SP'].map(g => {
     const meta = GROUPS[g];
     const cards = TYPES.filter(t => t.group === g).map(t => `
-      <div class="type-card" style="--tc:${t.color}" onclick="selectType('${t.code}')">
+      <div class="type-card" style="--tc:var(--blue)" onclick="selectType('${t.code}')">
         <div class="tc-code">${t.code}</div>
         <div class="tc-name">${t.name}</div>
       </div>`).join('');
     return `
       <div class="tgroup">
         <div class="tgroup-head">
-          <span class="tgroup-dot" style="background:${meta.color}"></span>
+          <span class="tgroup-dot" style="background:var(--blue)"></span>
           <span class="tgroup-name">${meta.name}</span>
           <span class="tgroup-desc">${meta.desc}</span>
         </div>
@@ -174,14 +174,14 @@ function drawRadar(canvasId, radar) {
   for (let ring = 1; ring <= 4; ring++) {
     const rr = R * ring / 4; ctx.beginPath();
     for (let i = 0; i <= n; i++) { const ang = -Math.PI / 2 + (i % n) * (2 * Math.PI / n); const x = cx + rr * Math.cos(ang), y = cy + rr * Math.sin(ang); i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }
-    ctx.strokeStyle = 'rgba(90,130,190,0.16)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.strokeStyle = 'rgba(136,119,173,0.16)'; ctx.lineWidth = 1; ctx.stroke();
   }
-  for (let i = 0; i < n; i++) { const ang = -Math.PI / 2 + i * (2 * Math.PI / n); ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + R * Math.cos(ang), cy + R * Math.sin(ang)); ctx.strokeStyle = 'rgba(90,130,190,0.14)'; ctx.stroke(); }
+  for (let i = 0; i < n; i++) { const ang = -Math.PI / 2 + i * (2 * Math.PI / n); ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + R * Math.cos(ang), cy + R * Math.sin(ang)); ctx.strokeStyle = 'rgba(136,119,173,0.14)'; ctx.stroke(); }
   ctx.beginPath(); const pts = [];
   radar.forEach((d, i) => { const v = d.pct / 100; const ang = -Math.PI / 2 + i * (2 * Math.PI / n); const x = cx + R * v * Math.cos(ang), y = cy + R * v * Math.sin(ang); pts.push([x, y]); i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); });
-  ctx.closePath(); ctx.fillStyle = 'rgba(91,143,208,0.24)'; ctx.fill(); ctx.strokeStyle = '#4f7fc4'; ctx.lineWidth = 2; ctx.stroke();
-  pts.forEach(([x, y]) => { ctx.beginPath(); ctx.arc(x, y, 3.5, 0, 7); ctx.fillStyle = '#4f7fc4'; ctx.fill(); });
-  ctx.font = '12px "Noto Sans SC", sans-serif'; ctx.fillStyle = '#55687f'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.closePath(); ctx.fillStyle = 'rgba(136,119,173,0.20)'; ctx.fill(); ctx.strokeStyle = '#8171a5'; ctx.lineWidth = 2; ctx.stroke();
+  pts.forEach(([x, y]) => { ctx.beginPath(); ctx.arc(x, y, 3.5, 0, 7); ctx.fillStyle = '#8171a5'; ctx.fill(); });
+  ctx.font = '12px "Noto Sans SC", sans-serif'; ctx.fillStyle = '#5c5666'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   radar.forEach((d, i) => { const ang = -Math.PI / 2 + i * (2 * Math.PI / n); ctx.fillText(d.label, cx + (R + 30) * Math.cos(ang), cy + (R + 24) * Math.sin(ang)); });
 }
 
@@ -222,13 +222,7 @@ function buildBarnum(r, t) {
 }
 
 // ---------- 颜色加深（阶位卡渐变） ----------
-function darken(hex, amt) {
-  const h = hex.replace('#', '');
-  const num = parseInt(h.length === 3 ? h.split('').map(c => c + c).join('') : h, 16);
-  let r = (num >> 16) - amt, g = ((num >> 8) & 0xff) - amt, b = (num & 0xff) - amt;
-  r = Math.max(0, r); g = Math.max(0, g); b = Math.max(0, b);
-  return `rgb(${r},${g},${b})`;
-}
+
 
 // ---------- 结果页 ----------
 function showResult() {
@@ -246,7 +240,7 @@ function showResult() {
     </div>
 
     <div class="stage-card fade-enter" style="animation-delay:0.05s">
-      <div class="stage-top" style="background:linear-gradient(155deg,${t.color},${darken(t.color, 42)})">
+      <div class="stage-top" style="background:linear-gradient(155deg,#8877ad,#716091)">
         <div class="stage-tier-badge">${TIER[tier].name}</div>
         <div class="stage-pct">成熟度 ${r.overall}%</div>
         <div class="stage-code">${TIER[tier].stage} · ${t.code}</div>
