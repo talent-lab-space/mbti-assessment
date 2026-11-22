@@ -254,7 +254,23 @@ function showResult() {
       <div class="stage-bottom"><p class="stage-summary">${stage.summary}</p></div>
     </div>
 
-    <div class="sec fade-enter" style="animation-delay:0.09s">
+    <div class="duo fade-enter" style="animation-delay:0.09s">
+      <div class="duo-card">
+        <div class="card-title">六维成长光谱</div>
+        <canvas id="radar-canvas"></canvas>
+      </div>
+      <div class="duo-card">
+        <div class="card-title">分维度成熟度</div>
+        ${r.radar.map(d => `
+          <div class="dim-row">
+            <div class="dim-lab"><b>${d.label}</b><span>${d.pct}%</span></div>
+            <div class="dim-track"><div class="dim-fill" style="width:${d.pct}%"></div></div>
+            <div class="dim-tier">${TIER[d.tier].name} · ${DIM_TIER_TXT[d.tier]}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="sec fade-enter" style="animation-delay:0.13s">
       <div class="sec-title">送给你的一段话</div>
       <div class="sec-sub">结合 ${t.code} 特质与你本次的作答轨迹生成</div>
       <div class="card barnum-card">
@@ -266,7 +282,7 @@ function showResult() {
       </div>
     </div>
 
-    <div class="sec fade-enter" style="animation-delay:0.13s">
+    <div class="sec fade-enter" style="animation-delay:0.17s">
       <div class="sec-title">适合你的岗位</div>
       <div class="sec-sub">按 ${t.code} 的天赋结构，以及你现在的阶位给出</div>
       <div class="card career-card">
@@ -348,22 +364,6 @@ function showResult() {
           <div class="advice-one-lab">如果只做一件</div>
           <div class="advice-one-txt">${stage.advice.one}</div>
         </div>
-      </div>
-    </div>
-
-    <div class="duo fade-enter" style="animation-delay:0.33s">
-      <div class="duo-card">
-        <div class="card-title">六维成长光谱</div>
-        <canvas id="radar-canvas"></canvas>
-      </div>
-      <div class="duo-card">
-        <div class="card-title">分维度成熟度</div>
-        ${r.radar.map(d => `
-          <div class="dim-row">
-            <div class="dim-lab"><b>${d.label}</b><span>${d.pct}%</span></div>
-            <div class="dim-track"><div class="dim-fill" style="width:${d.pct}%"></div></div>
-            <div class="dim-tier">${TIER[d.tier].name} · ${DIM_TIER_TXT[d.tier]}</div>
-          </div>`).join('')}
       </div>
     </div>
 
