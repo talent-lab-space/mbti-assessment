@@ -271,7 +271,6 @@ button { font-family: inherit; cursor: pointer; }
 .fbtn.ghost { background: var(--card2); color: var(--blue-d); border: 1.5px solid var(--edge); box-shadow: none; }
 
 @media (min-width: 640px) {
-  .duo { grid-template-columns: 1fr 1fr; }
   .tiers { grid-template-columns: 1fr; }
   .sb-grid { grid-template-columns: 1fr 1fr; }
   .type-grid { grid-template-columns: repeat(4,1fr); }
