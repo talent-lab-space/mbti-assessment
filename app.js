@@ -1,6 +1,6 @@
 // ============================================================
 //  MBTI 心智阶位测评 · 逻辑层
-//  选类型 → 动态组卷（通用24+专属12=36）→ 六维成熟度打分 → 阶位判定 → 结果
+//  选类型 → 动态组卷（通用18+专属12=30）→ 六维成熟度打分 → 阶位判定 → 结果
 // ============================================================
 
 // ---------- 全局状态 ----------
@@ -74,8 +74,11 @@ function renderTypeCards() {
 // ---------- 组卷 ----------
 function buildQuestions(code) {
   const t = TYPES.find(x => x.code === code);
-  const pool = COMMON_Q.concat(GROUP_Q[t.group]);          // 24 + 12 = 36
-  const shuffled = seededShuffle(pool.map((q, i) => i), 2026); // 打乱题目顺序
+  const commonByDim = DIMS.map(d => seededShuffle(
+    COMMON_Q.filter(q => q.dim === d.key), Math.random() * 233280
+  ).slice(0, 3)).flat();
+  const pool = commonByDim.concat(GROUP_Q[t.group]);        // 每维度 3 道通用题 + 2 道类型题
+  const shuffled = seededShuffle(pool.map((q, i) => i), Math.random() * 233280);
   return shuffled.map((origIdx, pos) => {
     const q = pool[origIdx];
     return { dim: q.dim, text: q.text, opts: seededShuffle(q.opts, origIdx * 37 + pos * 7 + 11) };
@@ -96,14 +99,19 @@ function renderQuestion(i) {
   cur = i;
   const q = questions[i], total = questions.length;
   const dimMeta = DIMS.find(d => d.key === q.dim);
-  document.getElementById('q-num').textContent = `Question ${i + 1}`;
-  document.getElementById('q-total').textContent = `${total} total`;
+  document.getElementById('q-num').textContent = `第 ${i + 1} 题`;
+  document.getElementById('q-total').textContent = `共 ${total} 题`;
   document.getElementById('q-bar').style.width = `${(i / total) * 100}%`;
   document.getElementById('q-dim').textContent = dimMeta ? dimMeta.label : '';
   document.getElementById('q-text').textContent = q.text;
   document.getElementById('q-opts').innerHTML = q.opts.map((o, idx) =>
-    `<button class="opt" onclick="pick(${idx})"><span class="opt-tag">${'ABCD'[idx]}</span>${o.t}</button>`
+    `<button class="opt${answers[i] === o.m ? ' selected' : ''}" onclick="pick(${idx})"><span class="opt-tag">${'ABCD'[idx]}</span>${o.t}</button>`
   ).join('');
+  document.getElementById('q-prev').disabled = i === 0;
+}
+
+function previousQuestion() {
+  if (cur > 0) renderQuestion(cur - 1);
 }
 
 function pick(idx) {

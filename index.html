@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>自我探索-MBTI心智阶位测评</title>
-  <link rel="stylesheet" href="style.css?v=20261023d">
+  <link rel="stylesheet" href="style.css?v=20261122a">
   <!-- 字体改为非阻塞加载：国内访问 Google Fonts 常常超时，不能让它拖住首屏渲染 -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 </head>
@@ -23,9 +23,9 @@
         <div class="cover-badge">16 型人格 · 心智成熟度测评</div>
         <h1 class="cover-h1">MBTI 心智阶位</h1>
         <p class="cover-sub">同一种人格，也有未觉醒、觉醒中与已觉醒</p>
-        <p class="cover-desc">先选择你的 MBTI 类型，再通过 36 道成长情境题，看清你此刻正处于该类型的哪个心智阶段，并获得专属的进阶画像与成长路径。</p>
+        <p class="cover-desc">先选择你的 MBTI 类型，再通过 30 道成长情境题，看清你此刻正处于该类型的哪个心智阶段，并获得专属的进阶画像与成长路径。</p>
         <button class="btn-main" onclick="goTypePage()">开始测试</button>
-        <div class="cover-tags"><span>无需登录</span><span>即时结果</span><span>36 题 · 约 6 分钟</span></div>
+        <div class="cover-tags"><span>无需登录</span><span>即时结果</span><span>30 题 · 约 5 分钟</span></div>
       </div>
     </div>
   </div>
@@ -46,9 +46,9 @@
   <div id="quiz-page" class="screen">
     <div class="quiz-top">
       <div class="quiz-top-row">
-        <span id="q-num">Question 1</span>
+        <span id="q-num">第 1 题</span>
         <span id="q-code">INTJ</span>
-        <span id="q-total">36 total</span>
+        <span id="q-total">共 30 题</span>
       </div>
       <div class="q-bar-wrap"><div class="q-bar" id="q-bar"></div></div>
     </div>
@@ -56,6 +56,9 @@
       <div class="q-dim" id="q-dim">行为选择</div>
       <h3 class="q-text" id="q-text"></h3>
       <div class="q-opts" id="q-opts"></div>
+      <div class="q-nav">
+        <button class="q-prev" id="q-prev" onclick="previousQuestion()">← 上一题</button>
+      </div>
     </div>
   </div>
 
@@ -76,10 +79,10 @@
     <div class="result-scroll" id="result-scroll"></div>
   </div>
 
-  <script src="data-types.js?v=20261023d"></script>
-  <script src="data-questions.js?v=20261023d"></script>
-  <script src="data-barnum.js?v=20261023d"></script>
-  <script src="data-career.js?v=20261023d"></script>
-  <script src="app.js?v=20261023d"></script>
+  <script src="data-types.js?v=20261122a"></script>
+  <script src="data-questions.js?v=20261122a"></script>
+  <script src="data-barnum.js?v=20261122a"></script>
+  <script src="data-career.js?v=20261122a"></script>
+  <script src="app.js?v=20261122a"></script>
 </body>
 </html>
